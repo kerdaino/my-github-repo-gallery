@@ -6,6 +6,8 @@ const username = "kerdaino";
 const repoList = document.querySelector(".repo-list");
 const repos = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
+const button = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
 
 
 const gith = async function () {
@@ -44,6 +46,7 @@ const repo = async function () {
 // repo();
 
 const displayRepoList = function (repos) {
+    filterInput.classList.remove("hide");
     for (const repo of repos) {
         const repoListItem = document.createElement("li");
         repoListItem.classList.add("repo");
@@ -90,4 +93,27 @@ const displaySpecificRepo = function (repoInfo, languages) {
     repoData.append(div);
     repoData.classList.remove("hide");
     repos.classList.add("hide");
+    button.classList.remove("hide");
 };
+
+button.addEventListener("click", function () {
+    repos.classList.remove("hide");
+    repoData.classList.add("hide");
+    button.classList.add("hide");
+});
+
+filterInput.addEventListener("input", function (e) {
+    const text = e.target.value;
+    const repos = document.querySelectorAll(".repo");
+    const low = text.toLowerCase();
+    //    console.log(text);
+    for (const repo of repos) {
+        const lower = repo.innerText.toLowerCase();
+        if (lower.includes(low)) {
+            repo.classList.remove("hide");
+        } else {
+            repo.classList.add("hide");
+        }
+    }
+
+});
